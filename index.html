@@ -4,6 +4,10 @@
 
 </head>
 <body>
-    <script type="module" src="./index.mjs"></script>
+    <script>
+        const module = import("./index.mjs");
+        // use `const m = await module` on the console
+        // use `m.run(m.example_config)` to run the example
+    </script>
 </body>
 </html>

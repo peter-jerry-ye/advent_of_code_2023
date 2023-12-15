@@ -1134,18 +1134,24 @@ const init1 = async (input, force)=>{
     await inited;
 };
 await init1();
-const wasi = new WASI({
+const moduleBytes = fetch("./target/wasm-gc/release/build/main/main.wasm");
+const module1 = await WebAssembly.compileStreaming(moduleBytes);
+async function run(config) {
+    const wasi = new WASI(config);
+    await wasi.instantiate(module1, {});
+    wasi.setStdinString(config.stdin ?? "");
+    const exitCode = wasi.start();
+    const stdout = wasi.getStdoutString();
+    console.log(`${stdout}(exit code: ${exitCode})`);
+}
+const example_config = {
     env: {},
     args: [
         "These",
         "are",
         "commands"
-    ]
-});
-const moduleBytes = fetch("./target/wasm-gc/release/build/main/main.wasm");
-const module1 = await WebAssembly.compileStreaming(moduleBytes);
-await wasi.instantiate(module1, {});
-wasi.setStdinString("Hello World!\nThis should give an echo.");
-const exitCode = wasi.start();
-const stdout = wasi.getStdoutString();
-console.log(`${stdout}(exit code: ${exitCode})`);
+    ],
+    stdin: "This should be\nechoed to the\nconsole"
+};
+export { run as run };
+export { example_config as example_config };
