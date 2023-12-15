@@ -3,15 +3,18 @@ const build_wat = new Deno.Command("moon", {
   args: ["build", "--target", "wasm-gc", "--output-wat"],
   env: Deno.env.toObject(),
 });
-const edit_wat = new Deno.Command("sed", {
-  args: [
-    "-i",
-    "-e",
-    "s/export \"moonbit\\.memory\"/export \"memory\"/g",
+const edit_wat = async () => {
+  const wat_file = await Deno.readFile(
     "target/wasm-gc/release/build/main/main.wat",
-  ],
-  env: Deno.env.toObject(),
-});
+  );
+  const wat = new TextDecoder().decode(wat_file);
+  const memory_renamed = wat.replace(/export \"moonbit\.memory\"/, 'export "memory"');
+  const remove_import = memory_renamed.replace("(func $printc (import \"spectest\" \"print_char\") (param $i i32))", "(func $printc (param $i i32) (nop))");
+  await Deno.writeFile(
+    "target/wasm-gc/release/build/main/main.wat",
+    new TextEncoder().encode(remove_import),
+  );
+};
 const build_wasm = new Deno.Command("wasm-tools", {
   args: [
     "parse",
@@ -23,5 +26,5 @@ const build_wasm = new Deno.Command("wasm-tools", {
 });
 
 await build_wat.spawn().status;
-await edit_wat.spawn().status;
+await edit_wat();
 await build_wasm.spawn().status;

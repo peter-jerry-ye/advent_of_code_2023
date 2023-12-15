@@ -15,34 +15,12 @@ const context = new Context({
 //     new OpenFile(new File([])),
 //   ],
 // );
-
-const [log, flush] = (() => {
-  let codes: number[] = [];
-  function log(x: number) {
-    if (x == "\n".charCodeAt(0)) {
-      flush();
-    } else if (x == "\r".charCodeAt(0)) { /* no op */ }
-    else {
-      codes.push(x);
-    }
-  }
-
-  function flush() {
-    if (codes.length > 0) {
-      console.log(new TextDecoder().decode(new Uint8Array(codes).valueOf()));
-      codes = [];
-    }
-  }
-  return [log, flush];
-})();
-
 await WebAssembly.instantiateStreaming(
   fetch(
     // new URL("./wasi.wasm", import.meta.url),
     new URL("./target/wasm-gc/release/build/main/main.wasm", import.meta.url),
   ),
   {
-    "spectest": { "print_char": log },
     "wasi_snapshot_preview1": context.exports,
   },
   // { "wasi_snapshot_preview1": wasi.wasiImport },
@@ -58,7 +36,6 @@ await WebAssembly.instantiateStreaming(
   } catch (e) {
     console.error(e);
   } finally {
-    flush();
     // const memory = obj.instance.exports["memory"] as WebAssembly.Memory;
     // console.log(new Uint8Array(memory.buffer, 0, 100));
     // console.log(new Uint8Array(memory.buffer, 1020, 100));
