@@ -1,4 +1,4 @@
-import { bundle } from "https://deno.land/x/emit/mod.ts";
+import { bundle } from "https://deno.land/x/emit@0.32.0/mod.ts";
 const build_index = async () => {
   console.log("Bundling index.ts")
   const index = await bundle(
