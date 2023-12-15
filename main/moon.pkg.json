@@ -1,0 +1,6 @@
+{
+    "is_main": true,
+    "import": {
+        "peter_jerry_ye/wasi/lib": ""
+    }
+}
