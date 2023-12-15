@@ -12,10 +12,11 @@
 Notice: `-A` will give all permission to the `deno`. 
 If you don't trust me, do not use `-A` and check the permissions by yourself.
 
-提示
+提示：`-A`意味着给`deno`所有权限。如果不信任，请不要添加参数，并细化授予的权限。
 
-- `deno run -A build.ts` : build the project
-- `deno run -A wasi.ts` : execute the wasm application
+- `deno run -A build.ts` : build the project 构建项目
+- `deno run -A wasi.ts` : execute the wasm application 直接运行wasm程序
+- Or open the browser 或者打开浏览器
 
 ## Organization 文件组织
 
