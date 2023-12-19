@@ -26,13 +26,13 @@ fn day1() {
           (Some(n), Some(m)) => {
             sum = sum + 10 * n + m
           }
-          _ => @lib.println("None?", Pos(0))
+          _ => @lib.stdout.println("None?", Pos(0))
         }
       }
       None => { has_next = false }
     }
   }
-  @lib.println(sum.to_string(), Pos(0))
+  @lib.stdout.println(sum.to_string(), Pos(0))
 }
 
 fn starts_with(str1: String, offset: Int, str2: String) -> Bool {
@@ -99,11 +99,11 @@ fn day1_part2() {
           (Some(n), Some(m)) => {
             sum = sum + 10 * n + m
           }
-          _ => @lib.println("None?", Pos(0))
+          _ => @lib.stdout.println("None?", Pos(0))
         }
       }
       None => { has_next = false }
     }
   }
-  @lib.println(sum.to_string(), Pos(0))
+  @lib.stdout.println(sum.to_string(), Pos(0))
 }

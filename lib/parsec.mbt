@@ -198,6 +198,7 @@ pub fn separated_by1[A, B](self: Parser[A], separator: Parser[B]) -> Parser[(A, 
   let sep_then = omit_first(separator.and_then(self))
   self.and_then(sep_then.many())
 }
+
 pub fn separated_by[A, B](self: Parser[A], separator: Parser[B]) -> Parser[List[A]] {
   self.separated_by1(separator).map(fn (pair) { List::Cons(pair.0, pair.1) }).or_else(pconst(Nil))
 }

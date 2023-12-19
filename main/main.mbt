@@ -4,16 +4,16 @@ fn print_args(args : List[Bytes], pos : @lib.Pos) {
   fn aux(list : List[Bytes]) {
     match list {
       Cons(hd, tl) => {
-        @lib.println(hd.to_string(), pos)
+        @lib.stdout.println(hd.to_string(), pos)
         aux(tl)
       }
       Nil => ()
     }
   }
 
-  @lib.println("=== args ===", pos)
+  @lib.stdout.println("=== args ===", pos)
   aux(args)
-  @lib.println("============", pos)
+  @lib.stdout.println("============", pos)
 }
 
 fn stream[A](array: Array[A]) -> List[A] {
@@ -44,19 +44,13 @@ fn show[A: Show](list: List[A]) -> String {
 
 fn init {
   let start = @lib.get_clock_time(Realtime, 1000L, Pos(0))
-  let parser1 = @lib.pchar('中')
-  let parser2 = @lib.pchar('英')
-  let parser3 = @lib.pchar('文')
-  let Some(ch, rest) = parser1.or_else(parser2).and_then(parser3).parse("中文".to_bytes())
-  @lib.println("Char: " + ch.0.to_string() + ch.1.to_string() + " Rest: " + rest.to_string(), Pos(0))
-  let Some(digit, rest) = @lib.pint.parse("12345，上山打老虎".to_bytes())
-  @lib.println("Digit: " + digit.to_string() + " Rest: " + rest.to_string(), Pos(0))
+  day2()
   let end = @lib.get_clock_time(Realtime, 1000L, Pos(0))
   match (start, end) {
     (Success(t1), Success(t2)) => {
-      @lib.println("Start: " + t1.to_string(), Pos(0))
-      @lib.println("End: " + t2.to_string(), Pos(0))
-      @lib.println(
+      @lib.stdout.println("Start: " + t1.to_string(), Pos(0))
+      @lib.stdout.println("End: " + t2.to_string(), Pos(0))
+      @lib.stdout.println(
         "Time cost: " + ((t2 - t1) / 1000000L).to_string() + " ms",
         Pos(0),
       )

@@ -1,10 +1,10 @@
-pub fn print(str : String, pos : Pos) {
-  fd_write(str.to_bytes(), stdout, pos)
+pub fn print(self: FileDescriptor, str : String, pos : Pos) {
+  fd_write(str.to_bytes(), self, pos)
   ()
 }
 
-pub fn println(str : String, pos : Pos) {
-  print(str + "\n", pos)
+pub fn println(self: FileDescriptor, str : String, pos : Pos) {
+  self.print(str + "\n", pos)
 }
 
 pub struct Scanner {
