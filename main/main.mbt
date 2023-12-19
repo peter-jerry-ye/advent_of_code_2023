@@ -44,7 +44,7 @@ fn show[A: Show](list: List[A]) -> String {
 
 fn init {
   let start = @lib.get_clock_time(Realtime, 1000L, Pos(0))
-  day2()
+  day2_part2()
   let end = @lib.get_clock_time(Realtime, 1000L, Pos(0))
   match (start, end) {
     (Success(t1), Success(t2)) => {
