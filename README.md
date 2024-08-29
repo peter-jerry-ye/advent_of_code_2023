@@ -1,5 +1,7 @@
 # MoonBit Framework for Advent of Code
 
+Warning: this repository is about to be abandoned. Use `wit-bindgen` to generate a repository instead.
+
 ## Requirement 依赖
 
 - Deno >= 1.38.0 (obligatory 必须)
