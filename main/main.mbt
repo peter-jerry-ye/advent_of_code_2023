@@ -1,5 +1,3 @@
-
-
 fn print_args(args : List[Bytes], pos : @lib.Pos) {
   fn aux(list : List[Bytes]) {
     match list {
@@ -17,8 +15,8 @@ fn print_args(args : List[Bytes], pos : @lib.Pos) {
 }
 
 fn stream[A](array: Array[A]) -> List[A] {
-  var list = List::Nil
-  var i = array.length() - 1
+  let mut list = List::Nil
+  let mut i = array.length() - 1
   while i >= 0, i = i - 1 {
     list = Cons(array[i], list)
   }
